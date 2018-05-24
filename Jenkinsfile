@@ -10,5 +10,10 @@ node {
    // Mark the code build 'stage'....
    stage 'Build'
    // Run the maven build
-   sh "echo README.md"
+   sh "./gradlew build"
+
+   stage 'archive'
+
+   archiveArtifacts allowEmptyArchive: false, artifacts: 'build/libs/*.jar'
+   junit allowEmptyResults: true, keepLongStdio: true, testResults: "build/test-results/test/*/xml"
 }
